@@ -1,13 +1,8 @@
-import React, { useState } from "react";
-import { z } from "zod";
-
-const loginSchema = z.object({
-  email: z.string().email("Correo inválido"),
-  password: z.string().min(6, "La contraseña debe tener al menos 6 caracteres"),
-});
+import React, { useState } from 'react';
+import { loginSchema } from '../../schemas/schemas';
 
 const LoginPage = () => {
-  const [form, setForm] = useState({ email: "", password: "" });
+  const [form, setForm] = useState({ email: '', password: '' });
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,7 +21,7 @@ const LoginPage = () => {
     } else {
       setErrors({});
       // Aquí iría la lógica de autenticación
-      alert("Inicio de sesión exitoso!");
+      alert('Inicio de sesión exitoso!');
     }
   };
 
@@ -53,10 +48,18 @@ const LoginPage = () => {
             onChange={handleChange}
           />
           {errors.password && <span className="text-red-500 text-sm">{errors.password}</span>}
-          <button type="submit" className="bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 transition">Entrar</button>
+          <button
+            type="submit"
+            className="bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 transition"
+          >
+            Entrar
+          </button>
         </form>
         <p className="mt-4 text-sm text-gray-600 text-center">
-          ¿No tienes cuenta? <a href="/auth/register" className="text-indigo-600 hover:underline">Regístrate</a>
+          ¿No tienes cuenta?{' '}
+          <a href="/auth/register" className="text-indigo-600 hover:underline">
+            Regístrate
+          </a>
         </p>
       </div>
     </div>

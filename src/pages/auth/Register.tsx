@@ -1,18 +1,8 @@
-import React, { useState } from "react";
-import { z } from "zod";
-
-const registerSchema = z.object({
-  name: z.string().min(2, "El nombre es requerido"),
-  email: z.string().email("Correo inválido"),
-  password: z.string().min(6, "La contraseña debe tener al menos 6 caracteres"),
-  confirm: z.string()
-}).refine((data) => data.password === data.confirm, {
-  message: "Las contraseñas no coinciden",
-  path: ["confirm"],
-});
+import React, { useState } from 'react';
+import { registerSchema } from '../../schemas/schemas';
 
 const RegisterPage = () => {
-  const [form, setForm] = useState({ name: "", email: "", password: "", confirm: "" });
+  const [form, setForm] = useState({ name: '', email: '', password: '', confirm: '' });
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,7 +12,7 @@ const RegisterPage = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const result = registerSchema.safeParse(form);
-    
+
     if (!result.success) {
       const fieldErrors: { [key: string]: string } = {};
       result.error.errors.forEach((err) => {
@@ -32,7 +22,7 @@ const RegisterPage = () => {
     } else {
       setErrors({});
       // Aquí iría la lógica de registro
-      alert("Registro exitoso!");
+      alert('Registro exitoso!');
     }
   };
 
@@ -77,10 +67,18 @@ const RegisterPage = () => {
             onChange={handleChange}
           />
           {errors.confirm && <span className="text-red-500 text-sm">{errors.confirm}</span>}
-          <button type="submit" className="bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 transition">Registrarse</button>
+          <button
+            type="submit"
+            className="bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 transition"
+          >
+            Registrarse
+          </button>
         </form>
         <p className="mt-4 text-sm text-gray-600 text-center">
-          ¿Ya tienes cuenta? <a href="/auth/login" className="text-indigo-600 hover:underline">Inicia sesión</a>
+          ¿Ya tienes cuenta?{' '}
+          <a href="/auth/login" className="text-indigo-600 hover:underline">
+            Inicia sesión
+          </a>
         </p>
       </div>
     </div>
