@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { registerSchema } from '../../schemas/schemas';
+import { mockRegisterService } from '../../services';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterPage = () => {
+  const navigate =  useNavigate()
   const [form, setForm] = useState({ name: '', email: '', password: '', confirm: '' });
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
@@ -21,8 +24,10 @@ const RegisterPage = () => {
       setErrors(fieldErrors);
     } else {
       setErrors({});
-      // Aquí iría la lógica de registro
-      alert('Registro exitoso!');
+      
+      mockRegisterService(form).then(() => {
+        navigate('/auth/login', { replace: true });
+      })
     }
   };
 

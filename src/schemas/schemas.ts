@@ -1,15 +1,26 @@
 import { z } from 'zod';
+import { emailRegex, passwordRegex } from '../utils/regex';
 
 export const loginSchema = z.object({
-  email: z.string().email('Correo inválido'),
-  password: z.string().min(6, 'La contraseña debe tener al menos 6 caracteres'),
+  email: z.string().regex(emailRegex, 'Correo inválido'),
+  password: z
+    .string()
+    .regex(
+      passwordRegex,
+      'La contraseña debe tener al menos 6 caracteres, una mayúscula, una minúscula y un número'
+    ),
 });
 
 export const registerSchema = z
   .object({
     name: z.string().min(2, 'El nombre es requerido'),
-    email: z.string().email('Correo inválido'),
-    password: z.string().min(6, 'La contraseña debe tener al menos 6 caracteres'),
+    email: z.string().regex(emailRegex, 'Correo inválido'),
+    password: z
+      .string()
+      .regex(
+        passwordRegex,
+        'La contraseña debe tener al menos 6 caracteres, una mayúscula, una minúscula y un número'
+      ),
     confirm: z.string(),
   })
   .refine((data) => data.password === data.confirm, {

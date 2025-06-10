@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import { loginSchema } from '../../schemas/schemas';
+import { useAuth } from '../../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
   const [form, setForm] = useState({ email: '', password: '' });
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -20,8 +24,26 @@ const LoginPage = () => {
       setErrors(fieldErrors);
     } else {
       setErrors({});
-      // Aquí iría la lógica de autenticación
-      alert('Inicio de sesión exitoso!');
+      
+      login(form.email, form.password).then((user) => {
+        console.log({user});
+        
+        switch (user.role) {
+          case 'admin':
+            navigate('/admin', { replace: true });
+            break;
+          case 'seller':
+            navigate('/seller', { replace: true });
+            break;
+          case 'buyer':   
+            navigate('/buyer', { replace: true });
+            break;
+          default:
+            navigate('/auth/login', { replace: true });
+        }
+      }).catch(() => {
+        setErrors({ general: 'Credenciales incorrectas. Inténtalo de nuevo.' });
+      });
     }
   };
 
