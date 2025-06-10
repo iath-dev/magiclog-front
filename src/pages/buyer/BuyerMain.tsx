@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const BuyerMain = () => {
   const [showSearch, setShowSearch] = useState(false);
   const [search, setSearch] = useState({
-    name: "",
-    sku: "",
-    minPrice: "",
-    maxPrice: "",
+    name: '',
+    sku: '',
+    minPrice: '',
+    maxPrice: '',
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,11 +33,24 @@ const BuyerMain = () => {
               Buscar producto
             </button>
             <Link to="/auth/login">
-              <button className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition">Iniciar Sesión</button>
+              <button className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition">
+                Iniciar Sesión
+              </button>
             </Link>
             <button className="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white px-4 py-2 rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition flex items-center gap-2">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25A3.75 3.75 0 0011.25 18h1.5a3.75 3.75 0 003.75-3.75V6.75m-9 7.5h9m-9 0l-1.5-6.75m10.5 6.75l1.5-6.75m-13.5 0h16.5" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-5 h-5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25A3.75 3.75 0 0011.25 18h1.5a3.75 3.75 0 003.75-3.75V6.75m-9 7.5h9m-9 0l-1.5-6.75m10.5 6.75l1.5-6.75m-13.5 0h16.5"
+                />
               </svg>
               Carrito
             </button>
@@ -45,7 +58,10 @@ const BuyerMain = () => {
         </div>
         {showSearch && (
           <div className="bg-gray-100 dark:bg-gray-700 py-4">
-            <form className="max-w-4xl mx-auto flex flex-wrap gap-4 items-end" onSubmit={handleSubmit}>
+            <form
+              className="max-w-4xl mx-auto flex flex-wrap gap-4 items-end"
+              onSubmit={handleSubmit}
+            >
               <div className="flex flex-col">
                 <label className="text-gray-700 dark:text-gray-200 mb-1">Nombre</label>
                 <input
@@ -92,7 +108,12 @@ const BuyerMain = () => {
                   min="0"
                 />
               </div>
-              <button type="submit" className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition">Buscar</button>
+              <button
+                type="submit"
+                className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition"
+              >
+                Buscar
+              </button>
             </form>
           </div>
         )}
