@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { loginSchema } from '../../schemas/schemas';
 import { useAuth } from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
+import { Alert, Button, Input } from '../../components';
 
 const LoginPage = () => {
-  const [form, setForm] = useState({ email: '', password: '' });
+  const [form, setForm] = useState({ username: '', password: '' });
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -24,10 +25,7 @@ const LoginPage = () => {
       setErrors(fieldErrors);
     } else {
       setErrors({});
-      
-      login(form.email, form.password).then((user) => {
-        console.log({user});
-        
+      login(form.username, form.password).then((user) => {
         switch (user.role) {
           case 'admin':
             navigate('/admin', { replace: true });
@@ -52,30 +50,35 @@ const LoginPage = () => {
       <div className="bg-white dark:bg-gray-800 p-8 rounded shadow-md w-full max-w-md">
         <h1 className="text-2xl font-bold mb-6 text-center">Iniciar Sesión</h1>
         <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-          <input
+          <Input
             type="email"
-            name="email"
+            name="username"
+            label="Correo electrónico"
             placeholder="Correo electrónico"
-            className="p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            value={form.email}
+            value={form.username}
             onChange={handleChange}
+            error={!!errors.username}
+            errorMessage={errors.username}
           />
-          {errors.email && <span className="text-red-500 text-sm">{errors.email}</span>}
-          <input
+          <Input
             type="password"
             name="password"
+            label="Contraseña"
             placeholder="Contraseña"
-            className="p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             value={form.password}
             onChange={handleChange}
+            error={!!errors.password}
+            errorMessage={errors.password}
+            helperText="Debe tener al menos 6 caracteres, una mayúscula, una minúscula y un número."
           />
-          {errors.password && <span className="text-red-500 text-sm">{errors.password}</span>}
-          <button
+          {errors.general && <Alert variant="danger" message={errors.general} />}
+          <Button
             type="submit"
-            className="bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 transition"
+            variant={Object.keys(errors).length > 0 ? 'danger' : 'primary'}
+            fullWidth
           >
             Entrar
-          </button>
+          </Button>
         </form>
         <p className="mt-4 text-sm text-gray-600 text-center">
           ¿No tienes cuenta?{' '}

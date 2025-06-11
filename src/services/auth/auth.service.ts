@@ -1,47 +1,47 @@
-import type { LoginResponse, User } from '../../types/auth';
+import api from '../../api';
+import type { LoginResponse, RegisterRequest, User } from '../../types/auth';
 
-// Simulación de autenticación
-export const mockLoginService = async (
+export const loginService = async (
   email: string,
-  _password: string
-): Promise<LoginResponse> => {
-  let role: User['role'] = 'buyer';
-  if (email.includes('admin')) role = 'admin';
-  else if (email.includes('seller')) role = 'seller';
-  const user: User = {
-    id: '1',
-    name: email.split('@')[0] + _password.length, // Just a mock name based on email and password length
-    email,
-    role,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-  };
+  password: string
+): Promise<{ user: User; access_token: string }> => {
+  const requestBody = { username: email, password: password };
+  const { data } = await api.post<LoginResponse>('/auth/login', requestBody, {
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+  });
+
+  // Guarda el token en localStorage
+  localStorage.setItem('access_token', data.access_token);
+
+  // Llama al endpoint de perfil con el token
+  const profileRes = await api.get<User>('/auth/profile', {
+    headers: {
+      Authorization: `Bearer ${data.access_token}`,
+    },
+  });
+
   return {
-    user,
-    token: 'mock-token-' + user.role,
+    user: profileRes.data,
+    access_token: data.access_token,
   };
 };
 
-export const mockRegisterService = async (data: {
-  name: string;
-  email: string;
-  password: string;
-}): Promise<LoginResponse> => {
-  let role: User['role'] = 'buyer';
-  if (data.email.includes('admin')) role = 'admin';
-  else if (data.email.includes('seller')) role = 'seller';
-  const user: User = {
-    id: '2',
-    name: data.name,
-    email: data.email,
-    role,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-  };
-  return {
-    user,
-    token: 'mock-token-' + user.role,
-  };
+export const registerService = async (data: RegisterRequest): Promise<void> => {
+  try {
+    await api.post('/auth/register', data, {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    });
+
+    return;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const mockLogoutService = async (): Promise<void> => {

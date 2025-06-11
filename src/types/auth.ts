@@ -2,14 +2,23 @@ export type UserRole = 'buyer' | 'seller' | 'admin';
 
 export interface User {
   id: string;
-  name: string;
-  email: string;
+  username: string;
   role: UserRole;
   createdAt: string;
   updatedAt: string;
 }
 
+export interface LoginRequest {
+  username: string;
+  password: string;
+}
+
 export interface LoginResponse {
-  user: User;
-  token: string;
+  access_token: string;
+}
+
+export interface RegisterRequest {
+  username: string;
+  password: string;
+  role: UserRole;
 }

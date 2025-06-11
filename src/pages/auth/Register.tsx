@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
 import { registerSchema } from '../../schemas/schemas';
-import { mockRegisterService } from '../../services';
+import { registerService } from '../../services';
 import { useNavigate } from 'react-router-dom';
+import type { RegisterRequest } from '../../types/auth';
+import { Alert, Button, Input, Select } from '../../components';
+
+interface RegisterForm extends RegisterRequest {
+  confirm: string;
+}
 
 const RegisterPage = () => {
   const navigate =  useNavigate()
-  const [form, setForm] = useState({ name: '', email: '', password: '', confirm: '' });
+  const [form, setForm] = useState<RegisterForm>({ username: '', password: '', confirm: '', role: "admin" });
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
@@ -24,10 +30,14 @@ const RegisterPage = () => {
       setErrors(fieldErrors);
     } else {
       setErrors({});
-      
-      mockRegisterService(form).then(() => {
+
+      registerService(form).then(() => {
         navigate('/auth/login', { replace: true });
-      })
+      }).catch((error) => {
+        console.error(error);
+        setErrors({ general: 'Error al registrar. Inténtalo de nuevo.' });
+      }
+      );
     }
   };
 
@@ -36,48 +46,50 @@ const RegisterPage = () => {
       <div className="bg-white dark:bg-gray-800 p-8 rounded shadow-md w-full max-w-md">
         <h1 className="text-2xl font-bold mb-6 text-center">Registro</h1>
         <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name="name"
-            placeholder="Nombre completo"
-            className="p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            value={form.name}
-            onChange={handleChange}
-          />
-          {errors.name && <span className="text-red-500 text-sm">{errors.name}</span>}
-          <input
+          <Input
             type="email"
-            name="email"
+            name="username"
+            label="Correo electrónico"
             placeholder="Correo electrónico"
-            className="p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            value={form.email}
+            value={form.username}
             onChange={handleChange}
+            error={!!errors.username}
+            errorMessage={errors.username}
           />
-          {errors.email && <span className="text-red-500 text-sm">{errors.email}</span>}
-          <input
+          <Input
             type="password"
             name="password"
+            label="Contraseña"
             placeholder="Contraseña"
-            className="p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             value={form.password}
             onChange={handleChange}
+            error={!!errors.password}
+            errorMessage={errors.password}
+            helperText="Debe tener al menos 6 caracteres, una mayúscula, una minúscula y un número."
           />
-          {errors.password && <span className="text-red-500 text-sm">{errors.password}</span>}
-          <input
+          <Input
             type="password"
             name="confirm"
+            label="Confirmar contraseña"
             placeholder="Confirmar contraseña"
-            className="p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             value={form.confirm}
             onChange={handleChange}
+            error={!!errors.confirm}
+            errorMessage={errors.confirm}
           />
-          {errors.confirm && <span className="text-red-500 text-sm">{errors.confirm}</span>}
-          <button
+          <Select label='Rol' name='role' onChange={handleChange} options={[
+            { value: 'buyer', label: 'Comprador' },
+            { value: 'seller', label: 'Vendedor' },
+            { value: 'admin', label: 'Administrador' }
+          ]} />
+          {errors.general && <Alert variant="danger" message={errors.general} />}
+          <Button
             type="submit"
-            className="bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 transition"
+            variant={Object.keys(errors).length > 0 ? 'danger' : 'primary'}
+            fullWidth
           >
             Registrarse
-          </button>
+          </Button>
         </form>
         <p className="mt-4 text-sm text-gray-600 text-center">
           ¿Ya tienes cuenta?{' '}

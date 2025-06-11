@@ -1,43 +1,49 @@
 import { useCallback, useEffect } from "react";
 import { useAuthStore } from "../store/auth";
-import type { LoginResponse } from "../types/auth";
-import { mockLoginService, mockLogoutService, mockVerifyTokenService } from "../services";
+import { loginService } from "../services";
+import api from "../api";
+import type { User } from "../types/auth";
 
 export function useAuth() {
   const user = useAuthStore((state) => state.user);
   const login = useAuthStore((state) => state.login);
   const logout = useAuthStore((state) => state.logout);
+  const token = localStorage.getItem("access_token");
 
   // Verifica token al iniciar el hook y obtiene el usuario
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      mockVerifyTokenService(token).then((userFromToken) => {
-        if (!userFromToken) {
+    if (!user && token) {
+      // Intenta obtener el perfil real usando el token
+      api
+        .get<User>("/auth/profile", {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((res) => {
+          // Si el perfil es válido, actualiza el store
+          login(res.data, token);
+        })
+        .catch(() => {
+          // Si el token es inválido, hace logout y limpia el token
           logout();
-          localStorage.removeItem("token");
-        } else if (!user) {
-          login(userFromToken);
-        }
-      });
+          localStorage.removeItem("access_token");
+        });
     }
-  }, [login, logout, user]);
+  }, [login, logout, user, token]);
 
-  // Login usando el servicio mockeado
+  // Login usando el servicio real
   const doLogin = useCallback(
     async (email: string, password: string) => {
-      const response: LoginResponse = await mockLoginService(email, password);
-      login(response.user);
-      localStorage.setItem("token", response.token);
+      const response = await loginService(email, password);
+      login(response.user, response.access_token);
+      localStorage.setItem("access_token", response.access_token);
       return response.user;
     },
     [login]
   );
 
-  const doLogout = useCallback(async () => {
-    await mockLogoutService();
+  const doLogout = useCallback(() => {
     logout();
-    localStorage.removeItem("token");
+    localStorage.removeItem("access_token");
   }, [logout]);
 
   return {
