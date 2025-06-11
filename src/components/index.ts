@@ -1,7 +1,11 @@
 export { default as Alert } from './Alert';
 export { default as Button } from './Button';
 export { default as Input } from './Input';
+export { default as FormInput } from './FormInput';
 export { default as Modal } from './Modal';
 export { default as ProductForm } from './ProductForm';
 export { default as Select } from './Select';
+export { default as FormSelect } from './FormSelect';
+export { default as Datalist } from './Datalist';
+export { default as FormDatalist } from './FormDatalist';
 export { default as Spinner } from './Spinner';
