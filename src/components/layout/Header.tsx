@@ -1,7 +1,7 @@
 import React from 'react';
-import CartButton from './CartButton';
-import Button from './Button';
-import { useAuth } from '../hooks/useAuth';
+import CartButton from '../cart/CartButton';
+import Button from '../ui/Button';
+import { useAuth } from '../../hooks/useAuth';
 
 interface HeaderProps {
   title: string;

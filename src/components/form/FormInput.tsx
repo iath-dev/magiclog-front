@@ -1,9 +1,9 @@
-// components/forms/FormSelect.tsx
+// components/forms/FormInput.tsx
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
-import Select from './Select';
+import Input from '../ui/Input';
 
-interface FormSelectProps extends React.ComponentProps<typeof Select> {
+interface FormInputProps extends React.ComponentProps<typeof Input> {
   label?: string;
   helperText?: string;
   error?: string;
@@ -13,7 +13,7 @@ interface FormSelectProps extends React.ComponentProps<typeof Select> {
   errorClassName?: string;
 }
 
-const FormSelect = forwardRef<HTMLSelectElement, FormSelectProps>(
+const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
   (
     {
       label,
@@ -25,7 +25,6 @@ const FormSelect = forwardRef<HTMLSelectElement, FormSelectProps>(
       errorClassName,
       hasError,
       className,
-      options,
       ...props
     },
     ref
@@ -42,16 +41,15 @@ const FormSelect = forwardRef<HTMLSelectElement, FormSelectProps>(
     return (
       <div className={containerClassName}>
         {label && (
-          <label htmlFor={props.id} className={labelClasses}>
+          <label htmlFor={props.name} className={labelClasses}>
             {label}
           </label>
         )}
         
-        <Select
+        <Input
           ref={ref}
           hasError={!!error || hasError}
           className={className}
-          options={options}
           {...props}
         />
         
@@ -71,6 +69,6 @@ const FormSelect = forwardRef<HTMLSelectElement, FormSelectProps>(
   }
 );
 
-FormSelect.displayName = 'FormSelect';
+FormInput.displayName = 'FormInput';
 
-export default FormSelect;
+export default FormInput;
