@@ -28,7 +28,7 @@ const colorClasses: Record<SpinnerColor, string> = {
   white: 'fill-white'
 };
 
-export const Spinner: React.FC<SpinnerProps> = ({
+const Spinner: React.FC<SpinnerProps> = ({
   size = 'md',
   color = 'blue',
   className = ''
@@ -58,3 +58,5 @@ export const Spinner: React.FC<SpinnerProps> = ({
     </div>
   );
 };
+
+export default Spinner;

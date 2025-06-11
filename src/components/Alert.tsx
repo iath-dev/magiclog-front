@@ -43,7 +43,7 @@ const defaultIcons: Record<AlertVariant, React.ReactNode> = {
   danger: <HiExclamation className="w-5 h-5" />,
 };
 
-export const Alert: React.FC<AlertProps> = ({
+const Alert: React.FC<AlertProps> = ({
   variant = "info",
   size = "md",
   title,
@@ -89,3 +89,5 @@ export const Alert: React.FC<AlertProps> = ({
     </div>
   );
 };
+
+export default Alert;
