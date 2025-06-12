@@ -51,5 +51,6 @@ export function useAuth() {
     login: doLogin,
     logout: doLogout,
     isAuthenticated: !!user,
+    token
   };
 }

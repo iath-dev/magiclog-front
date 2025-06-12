@@ -3,7 +3,7 @@ import { registerSchema } from '../../schemas/schemas';
 import { registerService } from '../../services';
 import { useNavigate } from 'react-router-dom';
 import type { RegisterRequest } from '../../types/auth';
-import { Alert, Button, Input, Select } from '../../components';
+import { Alert, Button, FormInput, FormSelect } from '../../components';
 
 interface RegisterForm extends RegisterRequest {
   confirm: string;
@@ -46,38 +46,38 @@ const RegisterPage = () => {
       <div className="bg-white dark:bg-gray-800 p-8 rounded shadow-md w-full max-w-md">
         <h1 className="text-2xl font-bold mb-6 text-center">Registro</h1>
         <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-          <Input
+          <FormInput
             type="email"
             name="username"
             label="Correo electrónico"
             placeholder="Correo electrónico"
             value={form.username}
             onChange={handleChange}
-            error={!!errors.username}
-            errorMessage={errors.username}
+            hasError={!!errors.username}
+            error={errors.username}
           />
-          <Input
+          <FormInput
             type="password"
             name="password"
             label="Contraseña"
             placeholder="Contraseña"
             value={form.password}
             onChange={handleChange}
-            error={!!errors.password}
-            errorMessage={errors.password}
+            hasError={!!errors.password}
+            error={errors.password}
             helperText="Debe tener al menos 6 caracteres, una mayúscula, una minúscula y un número."
           />
-          <Input
+          <FormInput
             type="password"
             name="confirm"
             label="Confirmar contraseña"
             placeholder="Confirmar contraseña"
             value={form.confirm}
             onChange={handleChange}
-            error={!!errors.confirm}
-            errorMessage={errors.confirm}
+            hasError={!!errors.confirm}
+            error={errors.confirm}
           />
-          <Select label='Rol' name='role' onChange={handleChange} options={[
+          <FormSelect label='Rol' name='role' onChange={handleChange} options={[
             { value: 'buyer', label: 'Comprador' },
             { value: 'seller', label: 'Vendedor' },
             { value: 'admin', label: 'Administrador' }
