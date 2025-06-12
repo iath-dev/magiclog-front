@@ -1,10 +1,6 @@
-import { Header, Pagination, Spinner } from '../../components';
+import { BuyerProductList, FilterForm, Header, Pagination, Spinner } from '../../components';
 import { useProducts } from '../../hooks/useProducts';
-import { useCart } from '../../hooks/useCart';
-import type { Product } from '../../types/product';
 import { useEffect, useState } from 'react';
-import ProductList from '../../components/products/ProductList';
-import FilterForm from '../../components/form/FilterForm';
 import type { FilterFormValues } from '../../components/form/FilterForm';
 
 const FILTER_DEFAULTS: FilterFormValues = {
@@ -17,7 +13,6 @@ const FILTER_DEFAULTS: FilterFormValues = {
 const DEBOUNCE_TIMEOUT = 300;
 
 const BuyerMain = () => {
-  const { items, addToCart } = useCart();
   const [currentPage, setCurrentPage] = useState(1);
   const [filters, setFilters] = useState<FilterFormValues>(FILTER_DEFAULTS);
   const [debounceFilters, setDebounceFilters] = useState<FilterFormValues>(FILTER_DEFAULTS);
@@ -40,12 +35,6 @@ const BuyerMain = () => {
     page: currentPage,
   });
 
-  const handleAddToCart = (product: Product) => {
-    const quantityInCart = items.find((item) => item.id === product.id)?.stock || 0;
-
-    addToCart({ ...product, stock: quantityInCart + 1 });
-  };
-
   const handleChangeFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFilters({ ...filters, [e.target.name]: e.target.value });
     setCurrentPage(1);
@@ -65,7 +54,7 @@ const BuyerMain = () => {
           )}
           {!!data && (
             <>
-              <ProductList products={data.items} onAddToCart={handleAddToCart} />
+              <BuyerProductList products={data.items} />
               <Pagination
                 totalPages={data.totalPages}
                 currentPage={currentPage}

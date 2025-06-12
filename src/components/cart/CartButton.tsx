@@ -34,7 +34,7 @@ const CartButton: React.FC = () => {
             <span>
               {items
                 .map((item) => item.price * item.quantity)
-                .reduce((a, b) => a + b)
+                .reduce((a, b) => a + b, 0)
                 .toLocaleString('es-CO', {
                   style: 'currency',
                   currency: 'COP',

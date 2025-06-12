@@ -3,8 +3,10 @@ import { useAuthStore } from '../store/auth';
 import api from '../api/config/api';
 import type { User } from '../types/auth';
 import { loginUser } from '../api';
+import { useCart } from './useCart';
 
 export function useAuth() {
+  const { clearCart } = useCart();
   const user = useAuthStore((state) => state.user);
   const login = useAuthStore((state) => state.login);
   const logout = useAuthStore((state) => state.logout);
@@ -44,6 +46,7 @@ export function useAuth() {
   const doLogout = useCallback(() => {
     logout();
     localStorage.removeItem('access_token');
+    clearCart();
   }, [logout]);
 
   return {
