@@ -1,5 +1,5 @@
-import api from './api';
-import type { LoginResponse, RegisterRequest, User } from '../types/auth';
+import api from '../config/api';
+import type { LoginResponse, RegisterRequest, User } from '../../types/auth';
 
 export const loginUser = async (
   email: string,

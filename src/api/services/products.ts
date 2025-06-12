@@ -1,6 +1,6 @@
-import api from './api';
-import type { Product, ProductFilter } from '../types/product';
-import type { PageResponse } from '../types/response';
+import api from '../config/api';
+import type { Product, ProductFilter } from '../../types/product';
+import type { PageResponse } from '../../types/response';
 
 export const getProducts = async (
   token: string,
