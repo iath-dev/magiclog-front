@@ -21,5 +21,5 @@ export { default as Header } from './layout/Header';
 export { default as CartButton } from './cart/CartButton';
 
 // Table components
-export { default as Pagination } from './table/Pagination';
-export { default as Table } from './table/Table';
+export { default as Pagination } from './ui/Pagination';
+export { default as Table } from './ui/Table';
