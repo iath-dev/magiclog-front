@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { registerSchema } from '../../schemas/schemas';
-import { registerService } from '../../services';
 import { useNavigate } from 'react-router-dom';
 import type { RegisterRequest } from '../../types/auth';
 import { Alert, Button, FormInput, FormSelect } from '../../components';
+import { registerUser } from '../../api';
 
 interface RegisterForm extends RegisterRequest {
   confirm: string;
@@ -31,7 +31,7 @@ const RegisterPage = () => {
     } else {
       setErrors({});
 
-      registerService(form).then(() => {
+      registerUser(form).then(() => {
         navigate('/auth/login', { replace: true });
       }).catch((error) => {
         console.error(error);

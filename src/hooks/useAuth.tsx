@@ -1,8 +1,8 @@
 import { useCallback, useEffect } from "react";
 import { useAuthStore } from "../store/auth";
-import { loginService } from "../services";
 import api from "../api/api";
 import type { User } from "../types/auth";
+import { loginUser } from "../api";
 
 export function useAuth() {
   const user = useAuthStore((state) => state.user);
@@ -33,7 +33,7 @@ export function useAuth() {
   // Login usando el servicio real
   const doLogin = useCallback(
     async (email: string, password: string) => {
-      const response = await loginService(email, password);
+      const response = await loginUser(email, password);
       login(response.user, response.access_token);
       localStorage.setItem("access_token", response.access_token);
       return response.user;
