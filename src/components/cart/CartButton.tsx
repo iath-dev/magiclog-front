@@ -13,7 +13,7 @@ const CartButton: React.FC = () => {
     <React.Fragment>
       <Button
         type="button"
-        variant='info'
+        variant="info"
         outline
         aria-label="Ver carrito"
         icon={<FaShoppingCart className="text-xl" />}
@@ -31,7 +31,15 @@ const CartButton: React.FC = () => {
         <div className="mt-6 flex flex-col gap-3">
           <div className="flex justify-between items-center text-lg font-semibold">
             <span>Total:</span>
-            <span>{items.map((item) => (item.price * item.quantity)).reduce((a, b) => a + b).toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</span>
+            <span>
+              {items
+                .map((item) => item.price * item.quantity)
+                .reduce((a, b) => a + b)
+                .toLocaleString('es-CO', {
+                  style: 'currency',
+                  currency: 'COP',
+                })}
+            </span>
           </div>
           <Button type="button" variant="success" fullWidth>
             Comprar
@@ -39,7 +47,7 @@ const CartButton: React.FC = () => {
         </div>
       </Modal>
     </React.Fragment>
-  )
+  );
 };
 
 export default CartButton;

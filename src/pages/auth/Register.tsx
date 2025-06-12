@@ -10,8 +10,13 @@ interface RegisterForm extends RegisterRequest {
 }
 
 const RegisterPage = () => {
-  const navigate =  useNavigate()
-  const [form, setForm] = useState<RegisterForm>({ username: '', password: '', confirm: '', role: "admin" });
+  const navigate = useNavigate();
+  const [form, setForm] = useState<RegisterForm>({
+    username: '',
+    password: '',
+    confirm: '',
+    role: 'admin',
+  });
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -31,13 +36,14 @@ const RegisterPage = () => {
     } else {
       setErrors({});
 
-      registerUser(form).then(() => {
-        navigate('/auth/login', { replace: true });
-      }).catch((error) => {
-        console.error(error);
-        setErrors({ general: 'Error al registrar. Inténtalo de nuevo.' });
-      }
-      );
+      registerUser(form)
+        .then(() => {
+          navigate('/auth/login', { replace: true });
+        })
+        .catch((error) => {
+          console.error(error);
+          setErrors({ general: 'Error al registrar. Inténtalo de nuevo.' });
+        });
     }
   };
 
@@ -77,11 +83,16 @@ const RegisterPage = () => {
             hasError={!!errors.confirm}
             error={errors.confirm}
           />
-          <FormSelect label='Rol' name='role' onChange={handleChange} options={[
-            { value: 'buyer', label: 'Comprador' },
-            { value: 'seller', label: 'Vendedor' },
-            { value: 'admin', label: 'Administrador' }
-          ]} />
+          <FormSelect
+            label="Rol"
+            name="role"
+            onChange={handleChange}
+            options={[
+              { value: 'buyer', label: 'Comprador' },
+              { value: 'seller', label: 'Vendedor' },
+              { value: 'admin', label: 'Administrador' },
+            ]}
+          />
           {errors.general && <Alert variant="danger" message={errors.general} />}
           <Button
             type="submit"

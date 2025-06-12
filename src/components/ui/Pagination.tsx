@@ -15,7 +15,6 @@ const Pagination: React.FC<PaginationProps> = ({
   onPageChange,
   className = '',
 }) => {
-
   return (
     <div className={`flex items-center justify-between ${className}`}>
       <div className="flex-1 flex justify-between sm:hidden">
@@ -43,7 +42,10 @@ const Pagination: React.FC<PaginationProps> = ({
           </p>
         </div>
         <div>
-          <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px items-center justify-center" aria-label="Pagination">
+          <nav
+            className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px items-center justify-center"
+            aria-label="Pagination"
+          >
             <button
               onClick={() => onPageChange(1)}
               disabled={currentPage === 1}
@@ -60,11 +62,11 @@ const Pagination: React.FC<PaginationProps> = ({
               <span className="sr-only">Anterior</span>
               <FiChevronLeft className="h-5 w-5" />
             </button>
-            
-            <span className='text-gray-500 dark:text-gray-400 px-4'>
-                Pagina {currentPage} de {totalPages}
+
+            <span className="text-gray-500 dark:text-gray-400 px-4">
+              Pagina {currentPage} de {totalPages}
             </span>
-            
+
             <button
               onClick={() => onPageChange(currentPage + 1)}
               disabled={currentPage === totalPages}

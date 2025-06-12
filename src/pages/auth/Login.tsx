@@ -25,23 +25,27 @@ const LoginPage = () => {
       setErrors(fieldErrors);
     } else {
       setErrors({});
-      login(form.username, form.password).then((user) => {
-        switch (user.role) {
-          case 'admin':
-            navigate('/admin', { replace: true });
-            break;
-          case 'seller':
-            navigate('/seller', { replace: true });
-            break;
-          case 'buyer':   
-            navigate('/buyer', { replace: true });
-            break;
-          default:
-            navigate('/auth/login', { replace: true });
-        }
-      }).catch(() => {
-        setErrors({ general: 'Credenciales incorrectas. Inténtalo de nuevo.' });
-      });
+      login(form.username, form.password)
+        .then((user) => {
+          switch (user.role) {
+            case 'admin':
+              navigate('/admin', { replace: true });
+              break;
+            case 'seller':
+              navigate('/seller', { replace: true });
+              break;
+            case 'buyer':
+              navigate('/buyer', { replace: true });
+              break;
+            default:
+              navigate('/auth/login', { replace: true });
+          }
+        })
+        .catch(() => {
+          setErrors({
+            general: 'Credenciales incorrectas. Inténtalo de nuevo.',
+          });
+        });
     }
   };
 

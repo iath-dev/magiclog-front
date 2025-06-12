@@ -10,8 +10,14 @@ interface AdminFilters {
 }
 
 const AdminProductList = () => {
-  const [filters, setFilters] = useState<AdminFilters>({ name: '', username: '' });
-  const [debouncedFilters, setDebouncedFilters] = useState<AdminFilters>({ name: '', username: '' });
+  const [filters, setFilters] = useState<AdminFilters>({
+    name: '',
+    username: '',
+  });
+  const [debouncedFilters, setDebouncedFilters] = useState<AdminFilters>({
+    name: '',
+    username: '',
+  });
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
@@ -19,14 +25,17 @@ const AdminProductList = () => {
       setDebouncedFilters(filters);
       setCurrentPage(1); // Reset to first page on filter change
     }, 300);
-  
+
     return () => {
       clearTimeout(handler);
-    }
-  }, [filters])
-  
+    };
+  }, [filters]);
 
-  const { isLoading, data } = useProducts({ limit: 10, page: currentPage, ...debouncedFilters });
+  const { isLoading, data } = useProducts({
+    limit: 10,
+    page: currentPage,
+    ...debouncedFilters,
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFilters({ ...filters, [e.target.name]: e.target.value });
@@ -50,15 +59,20 @@ const AdminProductList = () => {
         <SellerSelector onChange={handleChange} />
       </div>
       <section>
-        {isLoading &&
+        {isLoading && (
           <div className="flex justify-center items-center h-64">
-            <Spinner size='xl' />
+            <Spinner size="xl" />
           </div>
-        }
+        )}
         {!!data && (
-          <div className='space-y-4'>
+          <div className="space-y-4">
             <Table data={data.items} columns={AdminProductTableColumns} bordered />
-            <Pagination currentPage={currentPage} totalPages={data.totalPages} onPageChange={handlePageChange} className="mb-6" />
+            <Pagination
+              currentPage={currentPage}
+              totalPages={data.totalPages}
+              onPageChange={handlePageChange}
+              className="mb-6"
+            />
           </div>
         )}
       </section>

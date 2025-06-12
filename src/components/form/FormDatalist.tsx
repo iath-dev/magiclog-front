@@ -34,7 +34,7 @@ const FormDataList = forwardRef<HTMLInputElement, FormDataListProps>(
       'block text-sm font-medium mb-1',
       {
         'text-red-600': error || hasError,
-        'text-gray-700': !error && !hasError
+        'text-gray-700': !error && !hasError,
       },
       labelClassName
     );
@@ -46,7 +46,7 @@ const FormDataList = forwardRef<HTMLInputElement, FormDataListProps>(
             {label}
           </label>
         )}
-        
+
         <DataList
           ref={ref}
           hasError={!!error || hasError}
@@ -54,17 +54,15 @@ const FormDataList = forwardRef<HTMLInputElement, FormDataListProps>(
           options={options}
           {...props}
         />
-        
+
         {helperText && !error && (
           <p className={classNames('mt-1 text-sm text-gray-500', helperTextClassName)}>
             {helperText}
           </p>
         )}
-        
+
         {error && (
-          <p className={classNames('mt-1 text-sm text-red-600', errorClassName)}>
-            {error}
-          </p>
+          <p className={classNames('mt-1 text-sm text-red-600', errorClassName)}>{error}</p>
         )}
       </div>
     );

@@ -8,7 +8,7 @@ const CartItemsList: React.FC = () => {
 
   if (!items.length) {
     return <p className="text-gray-500">El carrito está vacío.</p>;
-  }  
+  }
 
   return (
     <ul className="divide-y divide-gray-200 dark:divide-gray-700">
@@ -24,7 +24,7 @@ const CartItemsList: React.FC = () => {
               type="number"
               min={1}
               value={item.quantity}
-              onChange={e => updateQuantity(item.id, Math.max(1, Number(e.target.value)))}
+              onChange={(e) => updateQuantity(item.id, Math.max(1, Number(e.target.value)))}
               className="w-16 px-2 py-1 border rounded text-center"
             />
             <Button

@@ -2,7 +2,16 @@ import React, { forwardRef, type ButtonHTMLAttributes } from 'react';
 import classNames from 'classnames';
 import Spinner from './Spinner';
 
-type ButtonVariant = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark' | 'link';
+type ButtonVariant =
+  | 'primary'
+  | 'secondary'
+  | 'success'
+  | 'danger'
+  | 'warning'
+  | 'info'
+  | 'light'
+  | 'dark'
+  | 'link';
 type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 type ButtonRounded = 'none' | 'sm' | 'md' | 'lg' | 'full';
 type ButtonShadow = 'none' | 'sm' | 'md' | 'lg' | 'xl';
@@ -105,28 +114,19 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const iconClasses = classNames({
       'mr-2': iconPosition === 'left',
       'ml-2': iconPosition === 'right',
-      'animate-spin': loading
+      'animate-spin': loading,
     });
 
     return (
-      <button
-        ref={ref}
-        className={buttonClasses}
-        disabled={disabled || loading}
-        {...props}
-      >
+      <button ref={ref} className={buttonClasses} disabled={disabled || loading} {...props}>
         {icon && iconPosition === 'left' && (
-          <span className={iconClasses}>
-            {loading ? <Spinner /> : icon}
-          </span>
+          <span className={iconClasses}>{loading ? <Spinner /> : icon}</span>
         )}
-        
+
         {children}
-        
+
         {icon && iconPosition === 'right' && (
-          <span className={iconClasses}>
-            {loading ? <Spinner /> : icon}
-          </span>
+          <span className={iconClasses}>{loading ? <Spinner /> : icon}</span>
         )}
       </button>
     );

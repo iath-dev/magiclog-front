@@ -1,21 +1,21 @@
-import { useCallback, useEffect } from "react";
-import { useAuthStore } from "../store/auth";
-import api from "../api/config/api";
-import type { User } from "../types/auth";
-import { loginUser } from "../api";
+import { useCallback, useEffect } from 'react';
+import { useAuthStore } from '../store/auth';
+import api from '../api/config/api';
+import type { User } from '../types/auth';
+import { loginUser } from '../api';
 
 export function useAuth() {
   const user = useAuthStore((state) => state.user);
   const login = useAuthStore((state) => state.login);
   const logout = useAuthStore((state) => state.logout);
-  const token = localStorage.getItem("access_token");
+  const token = localStorage.getItem('access_token');
 
   // Verifica token al iniciar el hook y obtiene el usuario
   useEffect(() => {
     if (!user && token) {
       // Intenta obtener el perfil real usando el token
       api
-        .get<User>("/auth/profile", {
+        .get<User>('/auth/profile', {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => {
@@ -25,7 +25,7 @@ export function useAuth() {
         .catch(() => {
           // Si el token es inválido, hace logout y limpia el token
           logout();
-          localStorage.removeItem("access_token");
+          localStorage.removeItem('access_token');
         });
     }
   }, [login, logout, user, token]);
@@ -35,7 +35,7 @@ export function useAuth() {
     async (email: string, password: string) => {
       const response = await loginUser(email, password);
       login(response.user, response.access_token);
-      localStorage.setItem("access_token", response.access_token);
+      localStorage.setItem('access_token', response.access_token);
       return response.user;
     },
     [login]
@@ -43,7 +43,7 @@ export function useAuth() {
 
   const doLogout = useCallback(() => {
     logout();
-    localStorage.removeItem("access_token");
+    localStorage.removeItem('access_token');
   }, [logout]);
 
   return {
@@ -51,6 +51,6 @@ export function useAuth() {
     login: doLogin,
     logout: doLogout,
     isAuthenticated: !!user,
-    token
+    token,
   };
 }

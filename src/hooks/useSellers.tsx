@@ -1,13 +1,13 @@
-import { useQuery } from "@tanstack/react-query";
-import { useAuth } from "./useAuth"
-import { getSellers } from "../api/services/users";
+import { useQuery } from '@tanstack/react-query';
+import { useAuth } from './useAuth';
+import { getSellers } from '../api/services/users';
 
 export const useSellers = () => {
-    const { isAuthenticated, token } = useAuth();
+  const { isAuthenticated, token } = useAuth();
 
-    return useQuery({
-        queryKey: ["sellers"],
-        queryFn: () => getSellers(token!),
-        enabled: !!isAuthenticated && !!token,
-    })
-}
+  return useQuery({
+    queryKey: ['sellers'],
+    queryFn: () => getSellers(token!),
+    enabled: !!isAuthenticated && !!token,
+  });
+};

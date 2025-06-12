@@ -33,7 +33,7 @@ const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
       'block text-sm font-medium mb-1',
       {
         'text-red-600': error || hasError,
-        'text-gray-700': !error && !hasError
+        'text-gray-700': !error && !hasError,
       },
       labelClassName
     );
@@ -45,24 +45,17 @@ const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
             {label}
           </label>
         )}
-        
-        <Input
-          ref={ref}
-          hasError={!!error || hasError}
-          className={className}
-          {...props}
-        />
-        
+
+        <Input ref={ref} hasError={!!error || hasError} className={className} {...props} />
+
         {helperText && !error && (
           <p className={classNames('mt-1 text-sm text-gray-500', helperTextClassName)}>
             {helperText}
           </p>
         )}
-        
+
         {error && (
-          <p className={classNames('mt-1 text-sm text-red-600', errorClassName)}>
-            {error}
-          </p>
+          <p className={classNames('mt-1 text-sm text-red-600', errorClassName)}>{error}</p>
         )}
       </div>
     );

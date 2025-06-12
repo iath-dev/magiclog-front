@@ -14,7 +14,7 @@ const sizeClasses: Record<SpinnerSize, string> = {
   sm: 'w-4 h-4',
   md: 'w-6 h-6',
   lg: 'w-8 h-8',
-  xl: 'w-10 h-10'
+  xl: 'w-10 h-10',
 };
 
 const colorClasses: Record<SpinnerColor, string> = {
@@ -25,14 +25,10 @@ const colorClasses: Record<SpinnerColor, string> = {
   yellow: 'fill-yellow-400',
   pink: 'fill-pink-600',
   purple: 'fill-purple-600',
-  white: 'fill-white'
+  white: 'fill-white',
 };
 
-const Spinner: React.FC<SpinnerProps> = ({
-  size = 'md',
-  color = 'blue',
-  className = ''
-}) => {
+const Spinner: React.FC<SpinnerProps> = ({ size = 'md', color = 'blue', className = '' }) => {
   const spinnerClasses = `inline animate-spin text-gray-200 dark:text-gray-600 ${sizeClasses[size]} ${className}`;
   const fillClasses = colorClasses[color];
 

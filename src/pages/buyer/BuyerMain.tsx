@@ -11,7 +11,7 @@ const FILTER_DEFAULTS: FilterFormValues = {
   name: '',
   sku: '',
   minPrice: '',
-  maxPrice: ''
+  maxPrice: '',
 };
 
 const DEBOUNCE_TIMEOUT = 300;
@@ -20,19 +20,17 @@ const BuyerMain = () => {
   const { items, addToCart } = useCart();
   const [currentPage, setCurrentPage] = useState(1);
   const [filters, setFilters] = useState<FilterFormValues>(FILTER_DEFAULTS);
-  const [debounceFilters, setDebounceFilters] = useState<FilterFormValues>(FILTER_DEFAULTS)
-  
-  
+  const [debounceFilters, setDebounceFilters] = useState<FilterFormValues>(FILTER_DEFAULTS);
+
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebounceFilters(filters);
     }, DEBOUNCE_TIMEOUT);
-  
+
     return () => {
       clearTimeout(handler);
-    }
-  }, [filters])
-  
+    };
+  }, [filters]);
 
   const { data, isLoading } = useProducts({
     ...debounceFilters,
@@ -60,11 +58,11 @@ const BuyerMain = () => {
         <FilterForm onChange={handleChangeFilter} filterData={filters} />
         <p className="text-gray-600 mb-4">Explora y compra productos de nuestra tienda.</p>
         <div className="bg-white dark:bg-gray-800 rounded shadow px-6 py-2">
-          {isLoading &&
+          {isLoading && (
             <div className="flex justify-center items-center h-64">
-              <Spinner size='xl' />
+              <Spinner size="xl" />
             </div>
-          }
+          )}
           {!!data && (
             <>
               <ProductList products={data.items} onAddToCart={handleAddToCart} />

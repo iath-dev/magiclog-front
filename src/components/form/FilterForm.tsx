@@ -3,7 +3,6 @@ import type { filterSchema } from '../../schemas/schemas';
 import FormInput from './FormInput';
 import type { FormError } from '../../types/general';
 
-
 export type FilterFormValues = z.infer<typeof filterSchema>;
 
 interface FilterFormProps {
@@ -13,13 +12,12 @@ interface FilterFormProps {
 }
 
 const FilterForm: React.FC<FilterFormProps> = ({ filterData, onChange, errors = {} }) => {
-
   return (
     <div className="flex flex-wrap gap-2 mb-4 items-end">
       <FormInput
         type="text"
         name="name"
-        label='Nombre del producto'
+        label="Nombre del producto"
         placeholder="Nombre del producto"
         value={filterData.name}
         onChange={onChange}
@@ -30,7 +28,7 @@ const FilterForm: React.FC<FilterFormProps> = ({ filterData, onChange, errors = 
       <FormInput
         type="text"
         name="sku"
-        label='SKU'
+        label="SKU"
         value={filterData.sku}
         onChange={onChange}
         hasError={!!errors.sku}
@@ -40,7 +38,7 @@ const FilterForm: React.FC<FilterFormProps> = ({ filterData, onChange, errors = 
       <FormInput
         type="number"
         name="minPrice"
-        label='Precio Minimo'
+        label="Precio Minimo"
         value={filterData.minPrice}
         onChange={onChange}
         hasError={!!errors.minPrice}
@@ -50,7 +48,7 @@ const FilterForm: React.FC<FilterFormProps> = ({ filterData, onChange, errors = 
       <FormInput
         type="number"
         name="maxPrice"
-        label='Precio Maximo'
+        label="Precio Maximo"
         value={filterData.maxPrice}
         onChange={onChange}
         hasError={!!errors.maxPrice}

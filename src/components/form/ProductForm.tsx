@@ -11,7 +11,12 @@ interface ProductFormProps {
 }
 
 const ProductForm: React.FC<ProductFormProps> = ({ onSubmit, onCancel, errors = {} }) => {
-  const [form, setForm] = useState<ProductFormData>({ name: '', price: '0', stock: '0', sku: '' });
+  const [form, setForm] = useState<ProductFormData>({
+    name: '',
+    price: '0',
+    stock: '0',
+    sku: '',
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -27,7 +32,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSubmit, onCancel, errors = 
       <FormInput
         type="text"
         name="name"
-        label='Nombre del producto'
+        label="Nombre del producto"
         placeholder="Nombre del producto"
         value={form.name}
         onChange={handleChange}
@@ -38,7 +43,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSubmit, onCancel, errors = 
       <FormInput
         type="text"
         name="sku"
-        label='SKU'
+        label="SKU"
         placeholder="SKU"
         value={form.sku}
         onChange={handleChange}
@@ -49,7 +54,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSubmit, onCancel, errors = 
       <FormInput
         type="currency"
         name="price"
-        label='Precio (COP)'
+        label="Precio (COP)"
         placeholder="Precio"
         value={form.price}
         onChange={handleChange}
@@ -61,7 +66,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSubmit, onCancel, errors = 
       <FormInput
         type="number"
         name="stock"
-        label='Stock'
+        label="Stock"
         placeholder="Stock"
         value={form.stock}
         onChange={handleChange}
@@ -70,18 +75,10 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSubmit, onCancel, errors = 
         required
       />
       <div className="flex gap-2 justify-end">
-        <Button
-          type="button"
-          variant='danger'
-          outline
-          onClick={onCancel}
-        >
+        <Button type="button" variant="danger" outline onClick={onCancel}>
           Cancelar
         </Button>
-        <Button
-          type="submit"
-          variant='primary'
-        >
+        <Button type="submit" variant="primary">
           Crear
         </Button>
       </div>
