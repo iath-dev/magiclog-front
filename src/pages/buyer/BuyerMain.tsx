@@ -1,7 +1,7 @@
 import { BuyerProductList, FilterForm, Header, Pagination, Spinner } from '../../components';
 import { useProducts } from '../../hooks/useProducts';
 import { useEffect, useState } from 'react';
-import type { FilterFormValues } from '../../components/form/FilterForm';
+import type { FilterFormValues } from '../../components/form/FilterForm/FilterForm';
 
 const FILTER_DEFAULTS: FilterFormValues = {
   name: '',

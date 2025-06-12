@@ -1,4 +1,4 @@
-import type { ColumnDefinition } from '../components/ui/Table';
+import type { ColumnDefinition } from '../components/ui/Table/Table';
 import type { Product } from '../types/product';
 
 export const AdminProductTableColumns: Array<ColumnDefinition<Product, keyof Product>> = [
