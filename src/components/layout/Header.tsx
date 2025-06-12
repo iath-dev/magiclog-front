@@ -2,6 +2,7 @@ import React from 'react';
 import CartButton from '../cart/CartButton';
 import Button from '../ui/Button';
 import { useAuth } from '../../hooks/useAuth';
+import { FiLogOut } from 'react-icons/fi';
 
 interface HeaderProps {
   title: string;
@@ -20,7 +21,7 @@ const Header: React.FC<HeaderProps> = ({ title, cartCount = 0, onCartClick }) =>
           {user?.role === 'buyer' && (
             <CartButton count={cartCount} onClick={onCartClick} />
           )}
-          <Button onClick={logout} variant="danger">
+          <Button onClick={logout} variant="danger" icon={<FiLogOut />}>
             Logout
           </Button>
         </div>

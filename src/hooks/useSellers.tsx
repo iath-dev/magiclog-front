@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "./useAuth"
-import { getSellers } from "../api/users";
+import { getSellers } from "../api/services/users";
 
 export const useSellers = () => {
     const { isAuthenticated, token } = useAuth();

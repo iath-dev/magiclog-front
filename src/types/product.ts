@@ -1,5 +1,10 @@
 import type { User } from './auth';
 
+export interface ProductFormData extends Omit<Product, 'id' | 'owner' | 'price' | 'quantity'> {
+  price: string;
+  quantity: string;
+}
+
 export interface Product {
   id: string;
   name: string;
@@ -7,8 +12,6 @@ export interface Product {
   price: number;
   quantity: number;
   owner: User;
-  createdAt: string;
-  updatedAt: string;
 }
 
 export interface ProductFilter {

@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from "react";
 import { useAuthStore } from "../store/auth";
-import api from "../api/api";
+import api from "../api/config/api";
 import type { User } from "../types/auth";
 import { loginUser } from "../api";
 

@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
+import FormInput from './FormInput';
+import Button from '../ui/Button';
+import type { FormError } from '../../types/general';
+import type { ProductFormData } from '../../types/product';
 
 interface ProductFormProps {
-  onSubmit: (data: { name: string; price: string; sku: string }) => void;
+  onSubmit: (data: ProductFormData) => void;
   onCancel: () => void;
-  errors?: { [key: string]: string };
+  errors?: FormError;
 }
 
 const ProductForm: React.FC<ProductFormProps> = ({ onSubmit, onCancel, errors = {} }) => {
-  const [form, setForm] = useState({ name: '', price: '', sku: '' });
+  const [form, setForm] = useState<ProductFormData>({ name: '', price: '0', quantity: '0', sku: '' });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -20,51 +24,66 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSubmit, onCancel, errors = 
 
   return (
     <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-      <input
+      <FormInput
         type="text"
         name="name"
+        label='Nombre del producto'
         placeholder="Nombre del producto"
-        className="p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
         value={form.name}
         onChange={handleChange}
+        hasError={!!errors.name}
+        error={errors.name}
         required
       />
-      {errors.name && <span className="text-red-500 text-sm">{errors.name}</span>}
-      <input
-        type="number"
+      <FormInput
+        type="text"
+        name="sku"
+        label='SKU'
+        placeholder="SKU"
+        value={form.sku}
+        onChange={handleChange}
+        hasError={!!errors.sku}
+        error={errors.sku}
+        required
+      />
+      <FormInput
+        type="currency"
         name="price"
+        label='Precio (COP)'
         placeholder="Precio"
-        className="p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
         value={form.price}
         onChange={handleChange}
         min="0"
+        hasError={!!errors.price}
+        error={errors.price}
         required
       />
-      {errors.price && <span className="text-red-500 text-sm">{errors.price}</span>}
-      <input
-        type="text"
-        name="sku"
-        placeholder="SKU"
-        className="p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-        value={form.sku}
+      <FormInput
+        type="number"
+        name="quantity"
+        label='Cantidad'
+        placeholder="Cantidad"
+        value={form.quantity}
         onChange={handleChange}
+        hasError={!!errors.quantity}
+        error={errors.quantity}
         required
       />
-      {errors.sku && <span className="text-red-500 text-sm">{errors.sku}</span>}
       <div className="flex gap-2 justify-end">
-        <button
+        <Button
           type="button"
+          variant='danger'
+          outline
           onClick={onCancel}
-          className="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400 transition"
         >
           Cancelar
-        </button>
-        <button
+        </Button>
+        <Button
           type="submit"
-          className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition"
+          variant='primary'
         >
           Crear
-        </button>
+        </Button>
       </div>
     </form>
   );

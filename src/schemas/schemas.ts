@@ -30,5 +30,8 @@ export const productSchema = z.object({
   price: z.string().refine((val) => !isNaN(Number(val)) && Number(val) > 0, {
     message: 'El precio debe ser un número mayor a 0',
   }),
+  quantity: z.string().refine((val) => !isNaN(Number(val)) && Number(val) > 0, {
+    message: 'La cantidad debe ser un número mayor a 0',
+  }),
   sku: z.string().min(1, 'El SKU es requerido'),
 });
