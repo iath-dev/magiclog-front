@@ -11,7 +11,7 @@ interface ProductFormProps {
 }
 
 const ProductForm: React.FC<ProductFormProps> = ({ onSubmit, onCancel, errors = {} }) => {
-  const [form, setForm] = useState<ProductFormData>({ name: '', price: '0', quantity: '0', sku: '' });
+  const [form, setForm] = useState<ProductFormData>({ name: '', price: '0', stock: '0', sku: '' });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -60,13 +60,13 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSubmit, onCancel, errors = 
       />
       <FormInput
         type="number"
-        name="quantity"
-        label='Cantidad'
-        placeholder="Cantidad"
-        value={form.quantity}
+        name="stock"
+        label='Stock'
+        placeholder="Stock"
+        value={form.stock}
         onChange={handleChange}
-        hasError={!!errors.quantity}
-        error={errors.quantity}
+        hasError={!!errors.stock}
+        error={errors.stock}
         required
       />
       <div className="flex gap-2 justify-end">

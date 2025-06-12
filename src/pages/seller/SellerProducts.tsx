@@ -32,8 +32,7 @@ const SellerProducts = () => {
     } else {
       setFormError({});
 
-      await createProduct(token!, data).then((newProduct) => {
-          console.log('Producto creado:', newProduct);
+      await createProduct(token!, data).then(() => {
           setModalOpen(false);
           queryClient.invalidateQueries({ queryKey: ['sellers-products']});
         }).catch((err) => {

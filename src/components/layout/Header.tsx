@@ -6,11 +6,9 @@ import { FiLogOut } from 'react-icons/fi';
 
 interface HeaderProps {
   title: string;
-  cartCount?: number;
-  onCartClick?: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ title, cartCount = 0, onCartClick }) => {
+const Header: React.FC<HeaderProps> = ({ title }) => {
   const { user, logout } = useAuth();
 
   return (
@@ -19,7 +17,7 @@ const Header: React.FC<HeaderProps> = ({ title, cartCount = 0, onCartClick }) =>
         <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">{title}</span>
         <div className="flex items-center space-x-4">
           {user?.role === 'buyer' && (
-            <CartButton count={cartCount} onClick={onCartClick} />
+            <CartButton />
           )}
           <Button onClick={logout} variant="danger" icon={<FiLogOut />}>
             Logout

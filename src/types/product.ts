@@ -1,8 +1,8 @@
 import type { User } from './auth';
 
-export interface ProductFormData extends Omit<Product, 'id' | 'owner' | 'price' | 'quantity'> {
+export interface ProductFormData extends Omit<Product, 'id' | 'owner' | 'price' | 'stock'> {
   price: string;
-  quantity: string;
+  stock: string;
 }
 
 export interface Product {
@@ -10,7 +10,7 @@ export interface Product {
   name: string;
   sku: string;
   price: number;
-  quantity: number;
+  stock: number;
   owner: User;
 }
 
