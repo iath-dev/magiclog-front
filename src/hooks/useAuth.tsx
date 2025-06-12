@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from "react";
 import { useAuthStore } from "../store/auth";
 import { loginService } from "../services";
-import api from "../api";
+import api from "../api/api";
 import type { User } from "../types/auth";
 
 export function useAuth() {

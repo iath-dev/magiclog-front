@@ -1,11 +1,4 @@
-import axios, { type AxiosInstance } from 'axios';
-
-const api: AxiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000/api',
-  withCredentials: true,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
-
-export default api;
+export { default as api } from './api';
+export * from './auth';
+export * from './users';
+export * from './products';

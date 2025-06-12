@@ -12,9 +12,14 @@ export { default as ProductForm } from './form/ProductForm';
 export { default as FormSelect } from './form/FormSelect';
 export { default as Datalist } from './form/Datalist';
 export { default as FormDatalist } from './form/FormDatalist';
+export { default as SellerSelector } from './form/SellerSelector';
 
 // Layout components
 export { default as Header } from './layout/Header';
 
 // Cart components
 export { default as CartButton } from './cart/CartButton';
+
+// Table components
+export { default as Pagination } from './table/Pagination';
+export { default as Table } from './table/Table';

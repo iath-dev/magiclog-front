@@ -1,7 +1,7 @@
-import api from '../../api';
-import type { LoginResponse, RegisterRequest, User } from '../../types/auth';
+import api from './api';
+import type { LoginResponse, RegisterRequest, User } from '../types/auth';
 
-export const loginService = async (
+export const loginUser = async (
   email: string,
   password: string
 ): Promise<{ user: User; access_token: string }> => {
@@ -29,7 +29,7 @@ export const loginService = async (
   };
 };
 
-export const registerService = async (data: RegisterRequest): Promise<void> => {
+export const registerUser = async (data: RegisterRequest): Promise<void> => {
   try {
     await api.post('/auth/register', data, {
       headers: {
@@ -42,8 +42,4 @@ export const registerService = async (data: RegisterRequest): Promise<void> => {
   } catch (error) {
     console.error(error);
   }
-};
-
-export const mockLogoutService = async (): Promise<void> => {
-  return;
 };
