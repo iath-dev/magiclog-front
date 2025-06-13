@@ -48,7 +48,7 @@ const AdminProductList = () => {
   return (
     <div className="container mx-auto">
       <Header title="Lista de Productos (Admin)" />
-      <div className="flex gap-4 mb-6">
+      <div className="flex gap-4 mb-6 px-4">
         <Input
           type="text"
           name="name"
@@ -58,7 +58,7 @@ const AdminProductList = () => {
         />
         <SellerSelector onChange={handleChange} />
       </div>
-      <section>
+      <section className="px-4">
         {isLoading && (
           <div className="flex justify-center items-center h-64">
             <Spinner size="xl" />

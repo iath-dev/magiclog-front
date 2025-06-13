@@ -10,7 +10,7 @@ const SellerProductList: React.FC<SellerProductListProps> = ({ products }) => {
   return (
     <ProductListBase
       products={products}
-      renderProduct={(product) => <ProductListItem product={product} />}
+      renderProduct={(product) => <ProductListItem key={product.id} product={product} />}
     />
   );
 };

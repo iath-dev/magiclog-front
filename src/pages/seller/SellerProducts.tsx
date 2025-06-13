@@ -58,8 +58,15 @@ const SellerProducts = () => {
         title="Mis Productos (Vendedor)"
         actions={() => (
           <div>
-            <Button variant="primary" outline icon={<FiPlus />} onClick={() => setModalOpen(true)}>
-              Crear producto
+            <Button
+              variant="primary"
+              size="lg"
+              outline
+              icon={<FiPlus />}
+              className="mr-2"
+              onClick={() => setModalOpen(true)}
+            >
+              <span className="hidden md:block">Crear producto</span>
             </Button>
 
             <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
