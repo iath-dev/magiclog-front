@@ -14,10 +14,12 @@ const CartItemsList: React.FC = () => {
     <ul className="divide-y divide-gray-200 dark:divide-gray-700">
       {items.map((item) => (
         <li key={item.id} className="py-3 flex items-center justify-between">
-          <div>
+          <div className="flex flex-col md:flex-row gap-1 items-start md:items-center justify-start">
             <span className="font-medium">{item.name}</span>
-            <span className="ml-2 text-sm text-gray-500">x{item.quantity}</span>
-            <span className="ml-2 text-sm text-gray-700">${item.price}</span>
+            <div className="flex items-center justify-start">
+              <span className="ml-2 text-sm text-gray-500">x{item.quantity}</span>
+              <span className="ml-2 text-sm text-gray-700">${item.price}</span>
+            </div>
           </div>
           <div className="flex items-center gap-2">
             <input

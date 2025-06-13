@@ -13,7 +13,7 @@ interface FilterFormProps {
 
 const FilterForm: React.FC<FilterFormProps> = ({ filterData, onChange, errors = {} }) => {
   return (
-    <div className="flex flex-wrap gap-2 mb-4 items-end">
+    <div className="grid grid-cols-2 md:flex flex-wrap gap-2 mb-4 items-end">
       <FormInput
         type="text"
         name="name"

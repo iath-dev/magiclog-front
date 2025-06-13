@@ -15,12 +15,13 @@ const CartButton: React.FC = () => {
         type="button"
         variant="info"
         outline
+        size="lg"
         aria-label="Ver carrito"
         icon={<FaShoppingCart className="text-xl" />}
         onClick={() => setOpen(true)}
       >
-        <span className="ml-2 font-medium">Carrito</span>
-        <span className="ml-2 inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-cyan-600 rounded-full">
+        <span className="ml-2 font-medium hidden md:block">Carrito</span>
+        <span className="ml-2 inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-cyan-500 rounded-full">
           {items.length}
         </span>
       </Button>

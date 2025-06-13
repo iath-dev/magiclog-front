@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { registerSchema } from '../../schemas/schemas';
 import { useNavigate } from 'react-router-dom';
 import type { RegisterRequest } from '../../types/auth';
-import { Alert, Button, FormInput, FormSelect } from '../../components';
+import { Alert, Button, FormInput } from '../../components';
 import { registerUser } from '../../api';
 
 interface RegisterForm extends RegisterRequest {
@@ -15,7 +15,7 @@ const RegisterPage = () => {
     username: '',
     password: '',
     confirm: '',
-    role: 'admin',
+    role: 'seller',
   });
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
@@ -82,16 +82,6 @@ const RegisterPage = () => {
             onChange={handleChange}
             hasError={!!errors.confirm}
             error={errors.confirm}
-          />
-          <FormSelect
-            label="Rol"
-            name="role"
-            onChange={handleChange}
-            options={[
-              { value: 'buyer', label: 'Comprador' },
-              { value: 'seller', label: 'Vendedor' },
-              { value: 'admin', label: 'Administrador' },
-            ]}
           />
           {errors.general && <Alert variant="danger" message={errors.general} />}
           <Button

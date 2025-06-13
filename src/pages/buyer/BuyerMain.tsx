@@ -55,8 +55,15 @@ const BuyerMain = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <Header title="MagicShop" actions={() => <CartButton />} />
-      <main className="container mx-auto py-4">
+      <Header
+        title="MagicShop"
+        actions={() => (
+          <span className="mr-2">
+            <CartButton />
+          </span>
+        )}
+      />
+      <main className="container mx-auto p-4">
         <FilterForm onChange={handleChangeFilter} filterData={filters} />
         <p className="text-gray-600 mb-4">Explora y compra productos de nuestra tienda.</p>
 
