@@ -54,23 +54,27 @@ const SellerProducts = () => {
 
   return (
     <div className="min-h-screen bg-gray-150 dark:bg-gray-900">
-      <Header title="Mis Productos (Vendedor)" />
-      <div className="container mx-auto max-w lg">
-        <div className="flex items-center justify-end container mx-auto mb-4">
-          <Button variant="primary" outline icon={<FiPlus />} onClick={() => setModalOpen(true)}>
-            Crear producto
-          </Button>
+      <Header
+        title="Mis Productos (Vendedor)"
+        actions={() => (
+          <div>
+            <Button variant="primary" outline icon={<FiPlus />} onClick={() => setModalOpen(true)}>
+              Crear producto
+            </Button>
 
-          <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
-            <h2 className="text-xl font-bold mb-4">Crear producto</h2>
-            <ProductForm
-              onSubmit={handleCreateProduct}
-              onCancel={() => setModalOpen(false)}
-              errors={formError}
-            />
-            {formError.general && <Alert variant="danger" message={formError.general} />}
-          </Modal>
-        </div>
+            <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
+              <h2 className="text-xl font-bold mb-4">Crear producto</h2>
+              <ProductForm
+                onSubmit={handleCreateProduct}
+                onCancel={() => setModalOpen(false)}
+                errors={formError}
+              />
+              {formError.general && <Alert variant="danger" message={formError.general} />}
+            </Modal>
+          </div>
+        )}
+      />
+      <div className="container mx-auto max-w lg">
         {isLoading && (
           <div className="flex justify-center items-center h-64">
             <Spinner size="xl" />

@@ -2,15 +2,9 @@ import api from '../config/api';
 import type { Product, ProductFilter, ProductFormData } from '../../types/product';
 import type { PageResponse } from '../../types/response';
 
-export const getProducts = async (
-  token: string,
-  filter?: ProductFilter
-): Promise<PageResponse<Product>> => {
+export const getProducts = async (filter?: ProductFilter): Promise<PageResponse<Product>> => {
   const res = await api.get<PageResponse<Product>>('/products/search', {
     params: filter,
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
   });
   return res.data;
 };

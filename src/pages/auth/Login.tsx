@@ -34,9 +34,6 @@ const LoginPage = () => {
             case 'seller':
               navigate('/seller', { replace: true });
               break;
-            case 'buyer':
-              navigate('/buyer', { replace: true });
-              break;
             default:
               navigate('/auth/login', { replace: true });
           }

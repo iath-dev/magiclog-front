@@ -1,4 +1,12 @@
-import { BuyerProductList, FilterForm, Header, Pagination, Spinner } from '../../components';
+import {
+  Alert,
+  BuyerProductList,
+  CartButton,
+  FilterForm,
+  Header,
+  Pagination,
+  Spinner,
+} from '../../components';
 import { useProducts } from '../../hooks/useProducts';
 import { useEffect, useState } from 'react';
 import type { FilterFormValues } from '../../components/form/FilterForm/FilterForm';
@@ -27,13 +35,18 @@ const BuyerMain = () => {
     };
   }, [filters]);
 
-  const { data, isLoading } = useProducts({
-    ...debounceFilters,
-    minPrice: debounceFilters.minPrice ? Number(debounceFilters.minPrice) : undefined,
-    maxPrice: debounceFilters.maxPrice ? Number(debounceFilters.maxPrice) : undefined,
-    limit: 5,
-    page: currentPage,
-  });
+  const { data, isLoading, isError, error } = useProducts(
+    {
+      ...debounceFilters,
+      minPrice: debounceFilters.minPrice ? Number(debounceFilters.minPrice) : undefined,
+      maxPrice: debounceFilters.maxPrice ? Number(debounceFilters.maxPrice) : undefined,
+      limit: 5,
+      page: currentPage,
+    },
+    'buyer-products'
+  );
+
+  console.log({ data, isLoading, isError, error });
 
   const handleChangeFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFilters({ ...filters, [e.target.name]: e.target.value });
@@ -42,10 +55,12 @@ const BuyerMain = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <Header title="MagicShop" />
+      <Header title="MagicShop" actions={() => <CartButton />} />
       <main className="container mx-auto py-4">
         <FilterForm onChange={handleChangeFilter} filterData={filters} />
         <p className="text-gray-600 mb-4">Explora y compra productos de nuestra tienda.</p>
+
+        {isError && <Alert variant="danger" message="No se pudo acceder a los productos" />}
         <div className="bg-white dark:bg-gray-800 rounded shadow px-6 py-2">
           {isLoading && (
             <div className="flex justify-center items-center h-64">

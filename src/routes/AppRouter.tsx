@@ -13,14 +13,7 @@ const AppRouter = () => (
   <BrowserRouter>
     <Routes>
       <Route path="*" element={<NotFound />} />
-      <Route
-        path="/buyer"
-        element={
-          <ProtectedRoute role="buyer">
-            <BuyerMain />
-          </ProtectedRoute>
-        }
-      />
+      <Route path="/" element={<BuyerMain />} />
       <Route
         path="admin"
         element={

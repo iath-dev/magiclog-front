@@ -1,15 +1,17 @@
 import React from 'react';
-import CartButton from '../../cart/CartButton/CartButton';
-import Button from '../../ui/Button/Button';
 import { useAuth } from '../../../hooks/useAuth';
-import { FiLogOut } from 'react-icons/fi';
+import { FiLogIn, FiLogOut } from 'react-icons/fi';
+import Button from '../../ui/Button/Button';
+import { useNavigate } from 'react-router-dom';
 
 interface HeaderProps {
   title: string;
+  actions?: () => React.ReactNode;
 }
 
-const Header: React.FC<HeaderProps> = ({ title }) => {
-  const { user, logout } = useAuth();
+const Header: React.FC<HeaderProps> = ({ title, actions = () => <span></span> }) => {
+  const navigate = useNavigate();
+  const { logout, isAuthenticated } = useAuth();
 
   return (
     <nav className="bg-white border-gray-200 dark:bg-gray-900">
@@ -18,9 +20,14 @@ const Header: React.FC<HeaderProps> = ({ title }) => {
           {title}
         </span>
         <div className="flex items-center space-x-4">
-          {user?.role === 'buyer' && <CartButton />}
-          <Button onClick={logout} variant="danger" icon={<FiLogOut />}>
-            Logout
+          {actions()}
+          <Button
+            onClick={isAuthenticated ? logout : () => navigate('/auth/login', { replace: true })}
+            outline={isAuthenticated}
+            variant={isAuthenticated ? 'danger' : 'light'}
+            icon={isAuthenticated ? <FiLogOut /> : <FiLogIn />}
+          >
+            {isAuthenticated ? 'Logout' : 'LogIn'}
           </Button>
         </div>
       </div>

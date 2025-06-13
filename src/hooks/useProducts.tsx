@@ -1,14 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import type { ProductFilter } from '../types/product';
-import { useAuth } from './useAuth';
 import { getProducts } from '../api/services/products';
 
-export const useProducts = (filter?: ProductFilter) => {
-  const { isAuthenticated, token } = useAuth();
-
+export const useProducts = (filter?: ProductFilter, key: string = 'admin-products') => {
   return useQuery({
-    queryKey: ['admin-products', filter],
-    queryFn: () => getProducts(token!, filter),
-    enabled: !!isAuthenticated && !!token,
+    queryKey: [key, filter],
+    queryFn: () => getProducts(filter),
   });
 };

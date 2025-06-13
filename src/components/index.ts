@@ -11,7 +11,7 @@ export { default as Table } from './ui/Table/Table';
 // Form components
 export { default as FormInput } from './form/FormInput/FormInput';
 export { default as ProductForm } from './form/ProductForm/ProductForm';
-export { default as FormSelect } from './form/FormSelect';
+export { default as FormSelect } from './form/FormSelect/FormSelect';
 export { default as Datalist } from './form/Datalist/Datalist';
 export { default as FormDatalist } from './form/FormDatalist/FormDatalist';
 export { default as SellerSelector } from './form/SellerSelector/SellerSelector';
