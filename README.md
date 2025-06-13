@@ -1,54 +1,81 @@
-# React + TypeScript + Vite
+# 🛍️ MagicLog - Frontend (React + Vite)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este proyecto es el frontend del marketplace MagicLog. Permite a los usuarios autenticarse, gestionar productos según su rol y buscar productos desde una SPA moderna y responsiva.
 
-Currently, two official plugins are available:
+🔗 **Sitio desplegado:** https://magiclog-front-one.vercel.app/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+⚠️ **Nota:** Puede haber una pequeña demora al realizar peticiones, ya que el backend se encuentra en Render y entra en modo reposo si no se usa.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🧰 Tecnologías usadas
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- React 19 + TypeScript
+- Vite
+- React Router DOM 7
+- Zustand (manejo de estado)
+- React Query (manejo de datos)
+- TailwindCSS + SCSS (estilos)
+- Axios (cliente HTTP)
+- React Hook Form + Zod (formularios y validación)
+- Jest + Testing Library (pruebas)
+
+---
+
+## 📁 Estructura del proyecto
+
+```bash
+magiclog-front/
+├── public/
+├── src/
+│   ├── api/            # Configuraciones y servicios API
+│   ├── assets/         # Recursos gráficos
+│   ├── components/     # Componentes reutilizables (UI, layout, formularios)
+│   ├── context/        # Contexto global (auth, etc.)
+│   ├── hooks/          # Hooks personalizados (auth, productos, etc.)
+│   ├── layouts/        # Layouts generales por rol
+│   ├── pages/          # Vistas por ruta y rol (auth, seller, buyer, admin)
+│   ├── routes/         # Sistema de rutas y rutas protegidas
+│   ├── schemas/        # Validaciones Zod
+│   ├── store/          # Zustand (auth, carrito)
+│   ├── styles/         # Estilos globales SCSS
+│   ├── types/          # Tipos globales (DTOs, respuestas)
+│   └── utils/          # Utilidades generales (regex, helpers)
+├── tests/              # (Opcional) pruebas unitarias por componente
+└── diagrams/           # 📊 Diagramas Mermaid (flujos, vistas, lógica)
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🔄 Scripts
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+npm install       # Instalar dependencias
+npm run dev       # Correr en modo desarrollo
+npm run test      # Ejecutar pruebas unitarias
+npm run build     # Compilar para producción
 ```
+
+---
+
+## 📊 Diagramas de flujo
+
+#### Autentificacion
+
+![FLujo de Autentificacion](/diagrams/auth-user.png)
+
+#### Crear producto
+
+![FLujo de Creacion de producto](/diagrams/create-product.png)
+
+#### Flujo de vista de Comprador
+
+![FLujo de Vista Comprador](/diagrams/public-buyer-view.png)
+
+#### Flujo de vista para el administrador
+
+![FLujo de Vista Administrador](/diagrams/admin-view-products.png)
+
+---
+
+_Hecho con React + Vite por Daniel para la prueba técnica de MagicLog._
