@@ -35,7 +35,7 @@ const BuyerMain = () => {
     };
   }, [filters]);
 
-  const { data, isLoading, isError, error } = useProducts(
+  const { data, isLoading, isError } = useProducts(
     {
       ...debounceFilters,
       minPrice: debounceFilters.minPrice ? Number(debounceFilters.minPrice) : undefined,
@@ -45,8 +45,6 @@ const BuyerMain = () => {
     },
     'buyer-products'
   );
-
-  console.log({ data, isLoading, isError, error });
 
   const handleChangeFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFilters({ ...filters, [e.target.name]: e.target.value });
