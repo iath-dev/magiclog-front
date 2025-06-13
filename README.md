@@ -6,6 +6,11 @@ Este proyecto es el frontend del marketplace MagicLog. Permite a los usuarios au
 
 ⚠️ **Nota:** Puede haber una pequeña demora al realizar peticiones, ya que el backend se encuentra en Render y entra en modo reposo si no se usa.
 
+🔐 **Usuario de administración disponible en producción:**
+
+- **Correo:** `admin@mail.com`
+- **Contraseña:** `123456`
+
 ---
 
 ## 🧰 Tecnologías usadas
